@@ -26,22 +26,25 @@ public class AcceptableCoinsTest {
 	
 	@Test
 	public void testQuarterHasCanonicalWeightAndSizeAndIsWorthTwentyFiveCents() {
-		assertEquals(5.67f, AcceptableCoins.valueOf("QUARTER").getWeightInGrams(), Float.MIN_VALUE);
-		assertEquals(24.26f, AcceptableCoins.valueOf("QUARTER").getSizeInMillimeters(), Float.MIN_VALUE);
-		assertEquals(.25f, AcceptableCoins.valueOf("QUARTER").getMonetaryValueInDollars(), Float.MIN_VALUE);
+		AcceptableCoins quarter = AcceptableCoins.valueOf("QUARTER");
+		assertEquals(5.67f, quarter.getWeightInGrams(), Float.MIN_VALUE);
+		assertEquals(24.26f, quarter.getSizeInMillimeters(), Float.MIN_VALUE);
+		assertEquals(.25f, quarter.getMonetaryValueInDollars(), Float.MIN_VALUE);
 	}
 	
 	@Test
 	public void testDimeHasCanonicalWeightAndSizeAndIsWorthTenCents() {
-		assertEquals(2.268f, AcceptableCoins.valueOf("DIME").getWeightInGrams(), Float.MIN_VALUE);
-		assertEquals(17.91f, AcceptableCoins.valueOf("DIME").getSizeInMillimeters(), Float.MIN_VALUE);
-		assertEquals(.1f, AcceptableCoins.valueOf("DIME").getMonetaryValueInDollars(), Float.MIN_VALUE);
+		AcceptableCoins dime = AcceptableCoins.valueOf("DIME");
+		assertEquals(2.268f, dime.getWeightInGrams(), Float.MIN_VALUE);
+		assertEquals(17.91f, dime.getSizeInMillimeters(), Float.MIN_VALUE);
+		assertEquals(.1f, dime.getMonetaryValueInDollars(), Float.MIN_VALUE);
 	}
 	
 	@Test
 	public void testNickelHasCanonicalWeightAndSizeAndIsWorthFiveCents() {
-		assertEquals(5f, AcceptableCoins.valueOf("NICKEL").getWeightInGrams(), Float.MIN_VALUE);
-		assertEquals(21.21f, AcceptableCoins.valueOf("NICKEL").getSizeInMillimeters(), Float.MIN_VALUE);
-		assertEquals(.05f, AcceptableCoins.valueOf("NICKEL").getMonetaryValueInDollars(), Float.MIN_VALUE);
+		AcceptableCoins nickel = AcceptableCoins.valueOf("NICKEL");
+		assertEquals(5f, nickel.getWeightInGrams(), Float.MIN_VALUE);
+		assertEquals(21.21f, nickel.getSizeInMillimeters(), Float.MIN_VALUE);
+		assertEquals(.05f, nickel.getMonetaryValueInDollars(), Float.MIN_VALUE);
 	}
 }
