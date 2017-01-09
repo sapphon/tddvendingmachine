@@ -2,6 +2,8 @@ package org.sapphon.kata.vendingmachine.example;
 
 import static org.junit.Assert.*;
 
+import java.util.Random;
+
 import org.junit.Test;
 
 public class VendingBrainsTest {
@@ -31,6 +33,17 @@ public class VendingBrainsTest {
 		assertEquals(0, underTest.getNumberOfCoinsInBank(AcceptableCoins.QUARTER));
 	}
 	
+	@Test
+	public void testVendingMachineProperlyReportsContentsOfItsBank_WithRandomness() {
+		VendingBrains underTest = new VendingBrains();
+		int expectedDimes = new Random().nextInt(100);
+		int expectedNickels = new Random().nextInt(100);
+		underTest.addChangeToBank(AcceptableCoins.DIME, expectedDimes);
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, expectedNickels);
+		assertEquals(expectedDimes, underTest.getNumberOfCoinsInBank(AcceptableCoins.DIME));
+		assertEquals(expectedNickels, underTest.getNumberOfCoinsInBank(AcceptableCoins.NICKEL));
+		assertEquals(0, underTest.getNumberOfCoinsInBank(AcceptableCoins.QUARTER));
+	}
 	
 
 
