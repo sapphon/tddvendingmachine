@@ -7,7 +7,7 @@ import org.junit.Test;
 public class VendingBrainsTest {
 
 	@Test
-	public void testVendingMachineDisplaysExactChangeOnlyAfterConstruction() {
+	public void testVendingMachineDisplaysExactChangeOnlyAfterConstruction_IfBankIsEmpty() {
 		VendingBrains underTest = new VendingBrains();
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
 	}
@@ -20,5 +20,18 @@ public class VendingBrainsTest {
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 1);
 		assertEquals("INSERT COIN", underTest.readDisplay());
 	}
+	
+	@Test
+	public void testVendingMachineProperlyReportsContentsOfItsBank_SimpleCase() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.addChangeToBank(AcceptableCoins.DIME, 1);
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, 1);
+		assertEquals(1, underTest.getNumberOfCoinsInBank(AcceptableCoins.DIME));
+		assertEquals(1, underTest.getNumberOfCoinsInBank(AcceptableCoins.NICKEL));
+		assertEquals(0, underTest.getNumberOfCoinsInBank(AcceptableCoins.QUARTER));
+	}
+	
+	
+
 
 }
