@@ -19,7 +19,7 @@ public class Coin {
 	
 	@Override
 	public boolean equals(Object obj){
-		return obj instanceof Coin;
+		return obj instanceof Coin && ((Coin)obj).weightInGrams == this.weightInGrams;
 	}
 	
 }
