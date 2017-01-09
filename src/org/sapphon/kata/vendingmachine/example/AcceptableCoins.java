@@ -3,7 +3,7 @@ package org.sapphon.kata.vendingmachine.example;
 public enum AcceptableCoins {
 	QUARTER(5.67f,24.26f,.25f), 
 	DIME(2.268f,17.91f,.1f), 
-	NICKEL(5f,21.21f,1f);
+	NICKEL(5f,21.21f,.05f);
 	
 	private float weightInGrams;
 	private float sizeInMillis;
