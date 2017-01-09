@@ -1,6 +1,8 @@
 package org.sapphon.kata.vendingmachine.example;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class VendingBrains {
 
@@ -16,10 +18,10 @@ public class VendingBrains {
 		}
 		else return "EXACT CHANGE ONLY";
 	}
+	
 
-	private boolean canMakeChangeWithCurrentBank() {
-		return (this.bank.get(AcceptableCoins.NICKEL) > 2) || 
-				(this.bank.get(AcceptableCoins.NICKEL) > 0 && this.bank.get(AcceptableCoins.DIME) > 0);
+	public void insertCoin(Coin coin) {
+
 	}
 
 	public void addChangeToBank(AcceptableCoins coinType, int howMany) {
@@ -35,6 +37,18 @@ public class VendingBrains {
 		for (AcceptableCoins coin : AcceptableCoins.values()) {
 			this.bank.put(coin, 0);
 		}
+	}
+
+	private boolean canMakeChangeWithCurrentBank() {
+		return (this.bank.get(AcceptableCoins.NICKEL) > 2)
+				|| (this.bank.get(AcceptableCoins.NICKEL) > 0 && this.bank
+						.get(AcceptableCoins.DIME) > 0);
+	}
+
+	public List<Coin> getCoinReturnContents() {
+		List<Coin> contents = new ArrayList<Coin>();
+		contents.add(new Coin(0.111f, 1.001f));
+		return contents;
 	}
 
 }

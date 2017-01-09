@@ -60,5 +60,15 @@ public class VendingBrainsTest {
 		underTest.addChangeToBank(AcceptableCoins.NICKEL,  1);
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
 	}
+	
+	@Test
+	public void testVendingMachineWillRejectNonAcceptableCoins() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.insertCoin(new Coin(1.0f, 1.0f));
+		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
+		assertEquals(1, underTest.getCoinReturnContents().size());
+	}
+	
+	
 
 }
