@@ -38,13 +38,27 @@ public class VendingBrainsTest {
 		VendingBrains underTest = new VendingBrains();
 		int expectedDimes = new Random().nextInt(100);
 		int expectedNickels = new Random().nextInt(100);
+		int expectedQuarters = new Random().nextInt(100);
 		underTest.addChangeToBank(AcceptableCoins.DIME, expectedDimes);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, expectedNickels);
+		underTest.addChangeToBank(AcceptableCoins.QUARTER, expectedQuarters);
 		assertEquals(expectedDimes, underTest.getNumberOfCoinsInBank(AcceptableCoins.DIME));
 		assertEquals(expectedNickels, underTest.getNumberOfCoinsInBank(AcceptableCoins.NICKEL));
-		assertEquals(0, underTest.getNumberOfCoinsInBank(AcceptableCoins.QUARTER));
+		assertEquals(expectedQuarters, underTest.getNumberOfCoinsInBank(AcceptableCoins.QUARTER));
 	}
 	
+	@Test
+	public void testVendingMachineDisplaysInsertCoinAfterConstruction_IfItStartsWithThreeNickels() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, 3);
+		assertEquals("INSERT COIN", underTest.readDisplay());
+	}
 
+	@Test
+	public void testVendingMachineDisplaysExactChangeOnlyAfterConstruction_IfBankContainsOnlyOneNickel() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.addChangeToBank(AcceptableCoins.NICKEL,  1);
+		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
+	}
 
 }
