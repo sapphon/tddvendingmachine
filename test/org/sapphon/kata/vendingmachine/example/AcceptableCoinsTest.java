@@ -29,5 +29,8 @@ public class AcceptableCoinsTest {
 		assertEquals(5.67f, AcceptableCoins.valueOf("QUARTER").getWeightInGrams(), Float.MIN_VALUE);
 	}
 	
-	
+	@Test
+	public void testDimeHasCanonicalWeightAndSizeAndIsWorthTenCents() {
+		assertEquals(2.268f, AcceptableCoins.valueOf("DIME").getWeightInGrams(), Float.MIN_VALUE);
+	}
 }
