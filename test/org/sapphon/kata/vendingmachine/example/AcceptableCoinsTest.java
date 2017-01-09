@@ -14,5 +14,10 @@ public class AcceptableCoinsTest {
 		assertEquals("QUARTER", AcceptableCoins.values()[0].name());
 	}
 	
+	@Test
+	public void testThatOneAcceptableCoinIsNamedDime() {
+		assertEquals("DIME", AcceptableCoins.values()[1].name());
+	}
+	
 	
 }
