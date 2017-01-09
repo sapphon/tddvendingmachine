@@ -7,14 +7,18 @@ import java.util.List;
 public class VendingBrains {
 
 	LinkedHashMap<AcceptableCoins, Integer> bank;
+	LinkedHashMap<AcceptableCoins, Integer> inserted;
 	List<Coin> coinReturnContents;
+	private boolean validCoinInserted;
 
 	public VendingBrains() {
 		initializeEmptyBank();
 		initializeEmptyCoinReturn();
+		initializeEmptyInsertedAmount();
 	}
 
 	public String readDisplay() {
+		if(validCoinInserted) return "$0.05";
 		if (canMakeChangeWithCurrentBank()) {
 			return "INSERT COIN";
 		} else
@@ -23,9 +27,9 @@ public class VendingBrains {
 
 	public void insertCoin(Coin coin) {
 		for (AcceptableCoins coinType : AcceptableCoins.values()) {
-			if (coin == new Coin(coinType.getWeightInGrams(),
-					coinType.getSizeInMillimeters())) {
-				// TODO
+			if (coin.equals(new Coin(coinType.getWeightInGrams(),
+					coinType.getSizeInMillimeters()))) {
+				this.validCoinInserted = true;
 				return;
 			}
 		}
@@ -40,6 +44,11 @@ public class VendingBrains {
 		return this.bank.get(coinType);
 	}
 
+	private void initializeEmptyInsertedAmount() {
+		this.inserted = new LinkedHashMap<AcceptableCoins, Integer>(); 
+		
+	}
+	
 	private void initializeEmptyBank() {
 		this.bank = new LinkedHashMap<AcceptableCoins, Integer>();
 		for (AcceptableCoins coin : AcceptableCoins.values()) {

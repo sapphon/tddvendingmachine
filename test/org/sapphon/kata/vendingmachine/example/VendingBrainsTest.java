@@ -87,7 +87,13 @@ public class VendingBrainsTest {
 		assertSame(expectedReturnedCoin3, underTest.getCoinReturnContents().get(2));
 	}
 	
-
+	@Test
+	public void testVendingMachineWillAcceptANickel_AndDisplayItsValue() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.insertCoin(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()));
+		assertEquals("$0.05", underTest.readDisplay());
+		assertEquals(0, underTest.getCoinReturnContents().size());
+	}
 	
 	
 	
