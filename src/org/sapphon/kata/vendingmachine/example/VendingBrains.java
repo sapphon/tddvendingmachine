@@ -7,18 +7,19 @@ public class VendingBrains {
 	LinkedHashMap<AcceptableCoins, Integer> bank;
 	
 	public VendingBrains(){
-		this.bank = new LinkedHashMap<AcceptableCoins, Integer>();
-		for (AcceptableCoins coin : AcceptableCoins.values()) {
-			this.bank.put(coin, 0);
-		}
+		initializeEmptyBank();
 	}
 
 	public String readDisplay() {
-		if((this.bank.get(AcceptableCoins.NICKEL) > 2) || 
-				(this.bank.get(AcceptableCoins.NICKEL) > 0 && this.bank.get(AcceptableCoins.DIME) > 0)){
+		if(canMakeChangeWithCurrentBank()){
 			return "INSERT COIN";
 		}
 		else return "EXACT CHANGE ONLY";
+	}
+
+	private boolean canMakeChangeWithCurrentBank() {
+		return (this.bank.get(AcceptableCoins.NICKEL) > 2) || 
+				(this.bank.get(AcceptableCoins.NICKEL) > 0 && this.bank.get(AcceptableCoins.DIME) > 0);
 	}
 
 	public void addChangeToBank(AcceptableCoins coinType, int howMany) {
@@ -27,6 +28,13 @@ public class VendingBrains {
 
 	public int getNumberOfCoinsInBank(AcceptableCoins coinType) {
 		return this.bank.get(coinType);
+	}
+	
+	private void initializeEmptyBank() {
+		this.bank = new LinkedHashMap<AcceptableCoins, Integer>();
+		for (AcceptableCoins coin : AcceptableCoins.values()) {
+			this.bank.put(coin, 0);
+		}
 	}
 
 }
