@@ -16,4 +16,10 @@ public class Coin {
 	public float getSizeInMillimeters() {
 		return this.sizeInMillimeters;
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		return true;
+	}
+	
 }

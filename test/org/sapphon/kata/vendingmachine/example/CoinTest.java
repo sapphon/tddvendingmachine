@@ -37,4 +37,12 @@ public class CoinTest {
 		Coin underTest = new Coin(NOT_BEING_TESTED, sizeToExpect);
 		assertEquals(sizeToExpect, underTest.getSizeInMillimeters(), Float.MIN_VALUE);
 	}
+	
+	@Test
+	public void testCoinsAreEqualToCoinsWithTheSameWeightAndSize() {
+		float sizeToExpect = new Random().nextFloat();
+		float weightToExpect = new Random().nextFloat();
+		Coin underTest = new Coin(weightToExpect, sizeToExpect);
+		assertEquals(underTest, new Coin(weightToExpect, sizeToExpect));
+	}
 }
