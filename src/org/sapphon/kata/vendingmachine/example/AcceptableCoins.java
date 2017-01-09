@@ -8,4 +8,8 @@ public enum AcceptableCoins {
     AcceptableCoins(float weight, float size, float value){
 		
 	}
+
+	public float getWeightInGrams() {
+		return 5.67f;
+	}
 }

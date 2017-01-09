@@ -24,5 +24,10 @@ public class AcceptableCoinsTest {
 		assertEquals("NICKEL", AcceptableCoins.values()[2].name());
 	}
 	
+	@Test
+	public void testQuarterHasCanonicalWeightAndSizeAndIsWorthTwentyFiveCents() {
+		assertEquals(5.67f, AcceptableCoins.valueOf("QUARTER").getWeightInGrams(), Float.MIN_VALUE);
+	}
+	
 	
 }
