@@ -33,4 +33,9 @@ public class AcceptableCoinsTest {
 	public void testDimeHasCanonicalWeightAndSizeAndIsWorthTenCents() {
 		assertEquals(2.268f, AcceptableCoins.valueOf("DIME").getWeightInGrams(), Float.MIN_VALUE);
 	}
+	
+	@Test
+	public void testNickelHasCanonicalWeightAndSizeAndIsWorthFiveCents() {
+		assertEquals(5f, AcceptableCoins.valueOf("NICKEL").getWeightInGrams(), Float.MIN_VALUE);
+	}
 }
