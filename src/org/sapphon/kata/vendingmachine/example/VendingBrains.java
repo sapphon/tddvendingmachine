@@ -9,7 +9,6 @@ public class VendingBrains {
 	LinkedHashMap<AcceptableCoins, Integer> bank;
 	LinkedHashMap<AcceptableCoins, Integer> inserted;
 	List<Coin> coinReturnContents;
-	private boolean validCoinInserted;
 
 	public VendingBrains() {
 		initializeEmptyBank();
@@ -18,18 +17,29 @@ public class VendingBrains {
 	}
 
 	public String readDisplay() {
-		if(validCoinInserted) return "$0.05";
-		if (canMakeChangeWithCurrentBank()) {
-			return "INSERT COIN";
-		} else
-			return "EXACT CHANGE ONLY";
+		if (calculateInsertedTotal() > 0f) {
+			return "$" + String.format("%.02f", this.calculateInsertedTotal());
+		}
+		else if (canMakeChangeWithCurrentBank()) {
+				return "INSERT COIN";
+			} else
+				return "EXACT CHANGE ONLY";
+		}
+		
+
+	private float calculateInsertedTotal() {
+		float total = 0f;
+		for (AcceptableCoins coin : AcceptableCoins.values()) {
+			total += this.inserted.get(coin) * coin.getMonetaryValueInDollars();
+		}
+		return total;
 	}
 
 	public void insertCoin(Coin coin) {
 		for (AcceptableCoins coinType : AcceptableCoins.values()) {
-			if (coin.equals(new Coin(coinType.getWeightInGrams(),
-					coinType.getSizeInMillimeters()))) {
-				this.validCoinInserted = true;
+			if (coin.equals(new Coin(coinType.getWeightInGrams(), coinType
+					.getSizeInMillimeters()))) {
+				this.inserted.put(coinType, this.inserted.get(coinType) + 1);
 				return;
 			}
 		}
@@ -45,10 +55,13 @@ public class VendingBrains {
 	}
 
 	private void initializeEmptyInsertedAmount() {
-		this.inserted = new LinkedHashMap<AcceptableCoins, Integer>(); 
-		
+		this.inserted = new LinkedHashMap<AcceptableCoins, Integer>();
+		for (AcceptableCoins coin : AcceptableCoins.values()) {
+			this.inserted.put(coin, 0);
+		}
+
 	}
-	
+
 	private void initializeEmptyBank() {
 		this.bank = new LinkedHashMap<AcceptableCoins, Integer>();
 		for (AcceptableCoins coin : AcceptableCoins.values()) {

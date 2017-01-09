@@ -95,6 +95,13 @@ public class VendingBrainsTest {
 		assertEquals(0, underTest.getCoinReturnContents().size());
 	}
 	
+	@Test
+	public void testVendingMachineWillAcceptADime_AndDisplayItsValue() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+		assertEquals("$0.10", underTest.readDisplay());
+		assertEquals(0, underTest.getCoinReturnContents().size());
+	}
 	
 	
 
