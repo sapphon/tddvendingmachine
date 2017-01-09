@@ -103,6 +103,24 @@ public class VendingBrainsTest {
 		assertEquals(0, underTest.getCoinReturnContents().size());
 	}
 	
+	@Test
+	public void testVendingMachineWillAcceptThreeDifferentCoins_AndDisplayTheirValue_ButRejectASlug() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+		assertEquals("$0.10", underTest.readDisplay());
+		assertEquals(0, underTest.getCoinReturnContents().size());
+		underTest.insertCoin(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()));
+		assertEquals("$0.15", underTest.readDisplay());
+		assertEquals(0, underTest.getCoinReturnContents().size());
+		Coin slugCoin = new Coin(100f, 0.001f);
+		underTest.insertCoin(slugCoin);
+		assertEquals("$0.15", underTest.readDisplay());
+		assertEquals(1, underTest.getCoinReturnContents().size());
+		assertSame(slugCoin, underTest.getCoinReturnContents().get(0));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		assertEquals("$0.40", underTest.readDisplay());
+		assertEquals(1, underTest.getCoinReturnContents().size());
+	}
 	
 
 }
