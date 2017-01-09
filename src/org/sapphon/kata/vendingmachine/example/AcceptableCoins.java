@@ -20,4 +20,8 @@ public enum AcceptableCoins {
 	public float getSizeInMillimeters() {
 		return this.sizeInMillis;
 	}
+
+	public float getMonetaryValueInDollars() {
+		return .25f;
+	}
 }

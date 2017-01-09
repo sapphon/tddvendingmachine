@@ -28,6 +28,7 @@ public class AcceptableCoinsTest {
 	public void testQuarterHasCanonicalWeightAndSizeAndIsWorthTwentyFiveCents() {
 		assertEquals(5.67f, AcceptableCoins.valueOf("QUARTER").getWeightInGrams(), Float.MIN_VALUE);
 		assertEquals(24.26f, AcceptableCoins.valueOf("QUARTER").getSizeInMillimeters(), Float.MIN_VALUE);
+		assertEquals(.25f, AcceptableCoins.valueOf("QUARTER").getMonetaryValueInDollars(), Float.MIN_VALUE);
 	}
 	
 	@Test
