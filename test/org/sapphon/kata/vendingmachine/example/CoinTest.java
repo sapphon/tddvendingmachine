@@ -14,4 +14,11 @@ public class CoinTest {
 		Coin underTest = new Coin(weightToExpect);
 		assertEquals(weightToExpect, underTest.getWeightInGrams(), Float.MIN_VALUE);
 	}
+	
+	@Test
+	public void testCoinsRememberTheirWeight_Random() {
+		float weightToExpect = new Random().nextFloat();
+		Coin underTest = new Coin(weightToExpect);
+		assertEquals(weightToExpect, underTest.getWeightInGrams(), Float.MIN_VALUE);
+	}
 }

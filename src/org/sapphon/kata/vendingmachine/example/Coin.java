@@ -1,10 +1,13 @@
 package org.sapphon.kata.vendingmachine.example;
 
 public class Coin {
-	public Coin(float weight) {
+	private float weightInGrams;
 
+	public Coin(float weight) {
+		this.weightInGrams = weight;
 	}
-	public float getWeightInGrams(){
-		return 0.07f;
+
+	public float getWeightInGrams() {
+		return this.weightInGrams;
 	}
 }
