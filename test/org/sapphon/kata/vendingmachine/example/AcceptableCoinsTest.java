@@ -8,4 +8,11 @@ public class AcceptableCoinsTest {
 	public void testThereAreThreeAcceptableCoins() {
 		assertEquals(3, AcceptableCoins.values().length);
 	}
+	
+	@Test
+	public void testThatOneAcceptableCoinIsNamedQuarter() {
+		assertEquals("QUARTER", AcceptableCoins.values()[0].name());
+	}
+	
+	
 }
