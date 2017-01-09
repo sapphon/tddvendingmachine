@@ -64,4 +64,10 @@ public class CoinTest {
 		Coin underTest = new Coin(NOT_BEING_TESTED, 0.00013f);
 		assertNotEquals(underTest, new Coin(NOT_BEING_TESTED, 0.00014f));
 	}
+	
+	@Test
+	public void testCoinsDoNotBlowUpOnNullValuesBeingCompared(){
+		Coin underTest = new Coin(NOT_BEING_TESTED, 0.00013f);
+		assertNotEquals(underTest, null);
+	}
 }
