@@ -19,5 +19,10 @@ public class AcceptableCoinsTest {
 		assertEquals("DIME", AcceptableCoins.values()[1].name());
 	}
 	
+	@Test
+	public void testThatOneAcceptableCoinIsNamedNickel() {
+		assertEquals("NICKEL", AcceptableCoins.values()[2].name());
+	}
+	
 	
 }
