@@ -37,6 +37,7 @@ public class CoinTest {
 		Coin underTest = new Coin(NOT_BEING_TESTED, sizeToExpect);
 		assertEquals(sizeToExpect, underTest.getSizeInMillimeters(), Float.MIN_VALUE);
 	}
+
 	
 	@Test
 	public void testCoinsAreEqualToCoinsWithTheSameWeightAndSize() {
@@ -48,15 +49,19 @@ public class CoinTest {
 	
 	@Test
 	public void testCoinsAreNOTEqualToThingsThatAreNotCoins(){
-		//I had to put the actual before the expectation here because of how "equals" works in Java.  I'd be testing the Integer's equals method otherwise!
 		Coin underTest = new Coin(NOT_BEING_TESTED, NOT_BEING_TESTED);
 		assertNotEquals(underTest, new Integer(1));
 	}
 	
 	@Test
 	public void testCoinsAreNOTEqualToCoinsWithOtherWeights(){
-		//I had to put the actual before the expectation here because of how "equals" works in Java.  I'd be testing the Integer's equals method otherwise!
 		Coin underTest = new Coin(0.01f, NOT_BEING_TESTED);
 		assertNotEquals(underTest, new Coin(0.02f, NOT_BEING_TESTED));
+	}
+	
+	@Test
+	public void testCoinsAreNOTEqualToCoinsWithOtherSizes(){
+		Coin underTest = new Coin(NOT_BEING_TESTED, 0.00013f);
+		assertNotEquals(underTest, new Coin(NOT_BEING_TESTED, 0.00014f));
 	}
 }
