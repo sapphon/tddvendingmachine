@@ -14,4 +14,8 @@ public enum AcceptableCoins {
 	public float getWeightInGrams() {
 		return this.weightInGrams;
 	}
+
+	public float getSizeInMillimeters() {
+		return 24.26f;
+	}
 }
