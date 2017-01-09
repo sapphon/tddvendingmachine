@@ -71,7 +71,24 @@ public class VendingBrainsTest {
 		assertSame(expectedReturnedCoin, underTest.getCoinReturnContents().get(0));
 	}
 	
+	@Test
+	public void testVendingMachineWillRejectNonAcceptableCoins_AndGiveThemBack() {
+		VendingBrains underTest = new VendingBrains();
+		Coin expectedReturnedCoin = new Coin(1.0f, 1.0f);
+		Coin expectedReturnedCoin2 = new Coin(2.0f, 2.0f);
+		Coin expectedReturnedCoin3 = new Coin(3.0f, 3.0f);
+		underTest.insertCoin(expectedReturnedCoin);
+		underTest.insertCoin(expectedReturnedCoin2);
+		underTest.insertCoin(expectedReturnedCoin3);
+		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
+		assertEquals(3, underTest.getCoinReturnContents().size());
+		assertSame(expectedReturnedCoin, underTest.getCoinReturnContents().get(0));
+		assertSame(expectedReturnedCoin2, underTest.getCoinReturnContents().get(1));
+		assertSame(expectedReturnedCoin3, underTest.getCoinReturnContents().get(2));
+	}
+	
 
+	
 	
 	
 
