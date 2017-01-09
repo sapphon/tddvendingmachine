@@ -45,4 +45,11 @@ public class CoinTest {
 		Coin underTest = new Coin(weightToExpect, sizeToExpect);
 		assertEquals(underTest, new Coin(weightToExpect, sizeToExpect));
 	}
+	
+	@Test
+	public void testCoinsAreNOTEqualToThingsThatAreNotCoins(){
+		//I had to put the actual before the expectation here because of how "equals" works in Java.  I'd be testing the Integer's equals method otherwise!
+		Coin underTest = new Coin(NOT_BEING_TESTED, NOT_BEING_TESTED);
+		assertNotEquals(underTest, new Integer(1));
+	}
 }
