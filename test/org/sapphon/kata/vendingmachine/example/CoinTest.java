@@ -30,4 +30,11 @@ public class CoinTest {
 		Coin underTest = new Coin(NOT_BEING_TESTED, sizeToExpect);
 		assertEquals(sizeToExpect, underTest.getSizeInMillimeters(), Float.MIN_VALUE);
 	}
+	
+	@Test
+	public void testCoinsRememberTheirSize_Random() {
+		float sizeToExpect = new Random().nextFloat();
+		Coin underTest = new Coin(NOT_BEING_TESTED, sizeToExpect);
+		assertEquals(sizeToExpect, underTest.getSizeInMillimeters(), Float.MIN_VALUE);
+	}
 }

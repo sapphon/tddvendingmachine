@@ -14,6 +14,6 @@ public class Coin {
 	}
 
 	public float getSizeInMillimeters() {
-		return 110.110110f;
+		return this.sizeInMillimeters;
 	}
 }
