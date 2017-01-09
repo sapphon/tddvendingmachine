@@ -1,14 +1,16 @@
 package org.sapphon.kata.vendingmachine.example;
 
 public enum AcceptableCoins {
-	QUARTER(5.67f,1f,1f), 
-	DIME(2.268f,1f,1f), 
+	QUARTER(5.67f,24.26f,1f), 
+	DIME(2.268f,17.91f,1f), 
 	NICKEL(5f,1f,1f);
 	
 	private float weightInGrams;
+	private float sizeInMillis;
 	
     AcceptableCoins(float weight, float size, float value){
 		this.weightInGrams = weight;
+		this.sizeInMillis = size;
 	}
 
 	public float getWeightInGrams() {
@@ -16,6 +18,6 @@ public enum AcceptableCoins {
 	}
 
 	public float getSizeInMillimeters() {
-		return 24.26f;
+		return this.sizeInMillis;
 	}
 }
