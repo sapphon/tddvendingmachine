@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class VendingBrains {
+public class VendingBrains implements IVendingBrains{
 
 	LinkedHashMap<AcceptableCoins, Integer> bank;
 	LinkedHashMap<AcceptableCoins, Integer> inserted;

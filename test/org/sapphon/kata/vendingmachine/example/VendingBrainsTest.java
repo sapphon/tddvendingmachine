@@ -18,6 +18,12 @@ public class VendingBrainsTest {
 		underTest = new VendingBrains();
 	}
 	
+
+	@Test
+	public void testInterface() {
+		assertTrue(underTest instanceof IVendingBrains);
+	}
+	
 	@Test
 	public void testVendingMachineDisplaysExactChangeOnlyAfterConstruction_IfBankIsEmpty() {
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
