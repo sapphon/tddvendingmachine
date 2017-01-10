@@ -16,4 +16,8 @@ public class VendableProductsTest {
 		assertEquals("COLA", VendableProducts.values()[0].name());
 	}
 
+	@Test
+	public void testTheSecondProductIsChips() {
+		assertEquals("CHIPS", VendableProducts.values()[1].name());
+	}
 }
