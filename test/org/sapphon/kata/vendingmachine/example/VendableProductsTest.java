@@ -25,4 +25,10 @@ public class VendableProductsTest {
 	public void testTheThirdProductIsCandy() {
 		assertEquals("CANDY", VendableProducts.values()[2].name());
 	}
+	
+	@Test
+	public void testColaCostsABuck() {
+		assertEquals(1.0f, VendableProducts.COLA.getCostInDollars(), Float.MIN_VALUE);
+	}
+	
 }
