@@ -262,5 +262,16 @@ public class VendingBrainsTest {
 		assertEquals("INSERT COIN", underTest.readDisplay());
 	}
 	
-	
+	@Test
+	public void testChoosingAProductWithoutSufficientMoneyGetsYouTheRightPriceOnTheDisplay_AndThenYourTotal() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		//note: it is around here, very late I realize, that I muchly feel the need for a copy constructor between AcceptableCoin and Coin.  A good refactor for next time.
+		underTest.selectProduct(VendableProducts.CHIPS);
+		assertEquals("PRICE $0.50", underTest.readDisplay());
+		assertEquals("$0.25", underTest.readDisplay());
+		underTest.selectProduct(VendableProducts.COLA);
+		assertEquals("PRICE $1.00", underTest.readDisplay());
+		assertEquals("$0.25", underTest.readDisplay());
+	}
 }
