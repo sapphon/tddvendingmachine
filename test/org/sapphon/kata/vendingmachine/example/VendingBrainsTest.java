@@ -314,4 +314,15 @@ public class VendingBrainsTest {
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
 	}
 	
+	@Test
+	public void testChoosingAProductThatIsInStockAndYouCanAffordReallyGivesYouTheItem() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.selectProduct(VendableProducts.CHIPS);
+		assertEquals(1, underTest.getItemHopperContents().size());
+		
+	}
+	
 }

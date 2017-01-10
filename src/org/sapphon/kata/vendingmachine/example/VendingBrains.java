@@ -55,6 +55,12 @@ public class VendingBrains {
 		}
 		this.coinReturnContents.add(coin);
 	}
+	
+	public List<VendableProducts> getItemHopperContents(){
+		ArrayList<VendableProducts> hopperContents = new ArrayList<VendableProducts>();
+		hopperContents.add(VendableProducts.CHIPS);
+		return hopperContents;
+	}
 
 	public void addChangeToBank(AcceptableCoins coinType, int howMany) {
 		this.bank.put(coinType, this.bank.get(coinType) + howMany);
