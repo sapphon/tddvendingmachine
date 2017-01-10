@@ -6,20 +6,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class VendingBrainsTest {
 
+	VendingBrains underTest;
+	
+	@Before
+	public void setUp() throws Exception {
+		underTest = new VendingBrains();
+	}
+	
 	@Test
 	public void testVendingMachineDisplaysExactChangeOnlyAfterConstruction_IfBankIsEmpty() {
-		VendingBrains underTest = new VendingBrains();
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
 	}
 	
 	@Test
 	public void testVendingMachineDisplaysInsertCoinAfterConstruction_IfItStartsWithADimeAndANickel() {
 		//Assumption: the machine will never need to make more than fifteen cents' change based on the items' pricing as it is now
-		VendingBrains underTest = new VendingBrains();
 		underTest.addChangeToBank(AcceptableCoins.DIME, 1);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 1);
 		assertEquals("INSERT COIN", underTest.readDisplay());
@@ -27,7 +33,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testVendingMachineProperlyReportsContentsOfItsBank_SimpleCase() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.addChangeToBank(AcceptableCoins.DIME, 1);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 1);
 		assertEquals(1, underTest.getNumberOfCoinsInBank(AcceptableCoins.DIME));
@@ -37,7 +42,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testVendingMachineProperlyReportsContentsOfItsBank_WithRandomness() {
-		VendingBrains underTest = new VendingBrains();
 		int expectedDimes = new Random().nextInt(100);
 		int expectedNickels = new Random().nextInt(100);
 		int expectedQuarters = new Random().nextInt(100);
@@ -51,21 +55,18 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testVendingMachineDisplaysInsertCoinAfterConstruction_IfItStartsWithThreeNickels() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 3);
 		assertEquals("INSERT COIN", underTest.readDisplay());
 	}
 
 	@Test
 	public void testVendingMachineDisplaysExactChangeOnlyAfterConstruction_IfBankContainsOnlyOneNickel() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.addChangeToBank(AcceptableCoins.NICKEL,  1);
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
 	}
 	
 	@Test
 	public void testVendingMachineWillRejectANonAcceptableCoin_AndGiveItBack() {
-		VendingBrains underTest = new VendingBrains();
 		Coin expectedReturnedCoin = new Coin(1.0f, 1.0f);
 		underTest.insertCoin(expectedReturnedCoin);
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
@@ -75,7 +76,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testVendingMachineWillRejectNonAcceptableCoins_AndGiveThemBack() {
-		VendingBrains underTest = new VendingBrains();
 		Coin expectedReturnedCoin = new Coin(1.0f, 1.0f);
 		Coin expectedReturnedCoin2 = new Coin(2.0f, 2.0f);
 		Coin expectedReturnedCoin3 = new Coin(3.0f, 3.0f);
@@ -91,7 +91,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testVendingMachineWillAcceptANickel_AndDisplayItsValue() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.insertCoin(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()));
 		assertEquals("$0.05", underTest.readDisplay());
 		assertEquals(0, underTest.getCoinReturnContents().size());
@@ -99,7 +98,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testVendingMachineWillAcceptADime_AndDisplayItsValue() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
 		assertEquals("$0.10", underTest.readDisplay());
 		assertEquals(0, underTest.getCoinReturnContents().size());
@@ -107,7 +105,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testVendingMachineWillAcceptThreeDifferentCoins_AndDisplayTheirValue_ButRejectASlug() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
 		assertEquals("$0.10", underTest.readDisplay());
 		assertEquals(0, underTest.getCoinReturnContents().size());
@@ -126,7 +123,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testUserCanRemoveCoinReturnContents() {
-		VendingBrains underTest = new VendingBrains();
 		assertEquals(0, underTest.getCoinReturnContents().size());
 		Coin slugCoin = new Coin(100f, 0.001f);
 		underTest.insertCoin(slugCoin);
@@ -140,13 +136,11 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testProductInventoryStartsWithThreeTypesOfItem() {
-		VendingBrains underTest = new VendingBrains();
 		assertEquals(3, underTest.getProductInventory().keySet().size());
 	}
 	
 	@Test
 	public void testProductInventoryStartsWithZeroEachOfCandyChipsAndSoda() {
-		VendingBrains underTest = new VendingBrains();
 		assertArrayEquals(VendableProducts.values(), underTest.getProductInventory().keySet().toArray());
 		Integer zero = 0;
 		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
@@ -156,7 +150,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testProductInventoryCanBeAddedToAndRemembered() {
-		VendingBrains underTest = new VendingBrains();
 		assertArrayEquals(VendableProducts.values(), underTest.getProductInventory().keySet().toArray());
 		Integer zero = 0;
 		Integer five = 5;
@@ -171,7 +164,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testProductInventoryCanBeAddedToMultipleTimes() {
-		VendingBrains underTest = new VendingBrains();
 		assertArrayEquals(VendableProducts.values(), underTest.getProductInventory().keySet().toArray());
 		Integer zero = 0;
 		Integer five = 5;
@@ -196,7 +188,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testCoinReturn_WithNoCoinsInserted() {
-		VendingBrains underTest = new VendingBrains();
 		List<Coin> expectedCoinReturnContents = new ArrayList<Coin>();
 		underTest.pushCoinReturn();
 		assertEquals(expectedCoinReturnContents, underTest.getCoinReturnContents());
@@ -204,7 +195,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testCoinReturnContainsAllInvalidCoinsInserted_AndSomeValidOnesOnceYouPushCoinReturn() {
-		VendingBrains underTest = new VendingBrains();
 		List<Coin> expectedCoinReturnContents = new ArrayList<Coin>();
 		Coin bigSlug = new Coin(100f, 100f);
 		Coin littleSlug = new Coin(.001f, .001f);
@@ -227,7 +217,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testPushingCoinReturnResetsTheAmountInserted_InsteadOfMakingYouInfinitelyRich() {
-		VendingBrains underTest = new VendingBrains();
 		Coin bigSlug = new Coin(100f, 100f);
 		Coin littleSlug = new Coin(.001f, .001f);
 		Coin validQuarter = new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters());
@@ -244,7 +233,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductWithoutPuttingInMoneyGetsYouAPriceOnTheDisplay() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CANDY, 1);
 		underTest.selectProduct(VendableProducts.CANDY);
 		assertEquals("PRICE $0.65", underTest.readDisplay());
@@ -252,7 +240,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductWithoutPuttingInMoneyGetsYouTheRightPriceOnTheDisplay_AndThenInsertCoinOrExactChangeOnly() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.productInventory.put(VendableProducts.COLA, 1);
 		underTest.selectProduct(VendableProducts.CHIPS);
@@ -267,7 +254,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductWithoutSufficientMoneyGetsYouTheRightPriceOnTheDisplay_AndThenYourTotal() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.productInventory.put(VendableProducts.COLA, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -282,7 +268,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductThatIsSoldOutGetsYouASoldOutMessageNoMatterWhat() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.selectProduct(VendableProducts.CHIPS);
 		assertEquals("SOLD OUT", underTest.readDisplay());
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
@@ -295,7 +280,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductThatIsInStockAndYouCanAffordSaysThankYou() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -305,7 +289,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductThatIsInStockAndYouCanAffordResetsYourTotal_NoChangeDue() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -318,7 +301,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductThatIsInStockAndYouCanAffordReallyGivesYouTheItem() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -329,7 +311,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testSeveralItemsCanBeVendedIfAllOtherRequirementsAreMet() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.productInventory.put(VendableProducts.COLA, 3);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -348,7 +329,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testMakingChangeDuringAValidPurchase_TenCentsIsOwed() {
-		VendingBrains underTest = new VendingBrains();
 		int plenty = 10;
 		underTest.addChangeToBank(AcceptableCoins.DIME, plenty);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, plenty);
@@ -369,7 +349,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testMakingChangeDuringAValidPurchase_FiveCentsIsOwed() {
-		VendingBrains underTest = new VendingBrains();
 		int plenty = 10;
 		underTest.addChangeToBank(AcceptableCoins.DIME, plenty);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, plenty);
@@ -390,7 +369,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testMachineWillNotProvideChangeItDoesNotHave_ButWillMakeItUpWithSmallerCoins() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 2);
 		underTest.productInventory.put(VendableProducts.CANDY, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -409,7 +387,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testMachineWillGetAsCloseAsItCanIfTrulyOutOfChange() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 1);
 		underTest.productInventory.put(VendableProducts.CANDY, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -428,7 +405,6 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testMachineWillGetRicherAsYouBuyThings_AndPoorerCorrespondingToTheChangeItMakes() {
-		VendingBrains underTest = new VendingBrains();
 		underTest.addChangeToBank(AcceptableCoins.QUARTER, 3);
 		underTest.addChangeToBank(AcceptableCoins.DIME, 3);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 3);
