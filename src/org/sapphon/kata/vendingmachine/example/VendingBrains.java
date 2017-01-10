@@ -14,7 +14,7 @@ public class VendingBrains {
 	List<Coin> coinReturnContents;
 	List<VendableProducts> hopperContents;
 	
-	private String interruptMessage = "";
+	String interruptMessage = "";
 
 	public VendingBrains() {
 		initializeEmptyBank();
@@ -41,13 +41,24 @@ public class VendingBrains {
 				return "EXACT CHANGE ONLY";
 		}
 		
-
-	private float calculateInsertedTotal() {
-		float total = 0f;
-		for (AcceptableCoins coin : AcceptableCoins.values()) {
-			total += this.inserted.get(coin) * coin.getMonetaryValueInDollars();
+	public void selectProduct(VendableProducts productToVend) {
+		if(this.productInventory.get(productToVend) > 0){
+			if(productToVend.getCostInDollars() > this.calculateInsertedTotal()){
+				this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
+			} else{
+				this.interruptMessage = "THANK YOU";
+				this.hopperContents.add(productToVend);
+				this.addInsertedAmountToBank();
+				if(this.calculateInsertedTotal() > productToVend.getCostInDollars()){
+					this.makeChangeFor(productToVend);
+				}
+				this.initializeEmptyInsertedAmount();
+			}
 		}
-		return total;
+		else{
+			this.interruptMessage = "SOLD OUT";
+		}
+		
 	}
 
 	public void insertCoin(Coin coin) {
@@ -76,6 +87,30 @@ public class VendingBrains {
 	public void takeCoinReturnContents(){
 		this.initializeEmptyCoinReturn();
 	}
+	
+
+	public void addProductToInventory(VendableProducts product, int numberToAdd) {
+		this.productInventory.put(product, this.productInventory.get(product) + numberToAdd);
+	}
+
+	public void pushCoinReturn() {
+		for (AcceptableCoins denomination : this.inserted.keySet()) {
+			for(int n = 0; n < this.inserted.get(denomination); n++){
+				this.coinReturnContents.add(new Coin(denomination.getWeightInGrams(), denomination.getSizeInMillimeters()));
+			}
+		}
+		this.initializeEmptyInsertedAmount();
+	}
+	
+	public List<Coin> getCoinReturnContents() {
+		return this.coinReturnContents;
+	}
+
+	public LinkedHashMap<VendableProducts, Integer> getProductInventory() {
+		return this.productInventory;
+	}
+	
+
 
 	private void initializeEmptyInsertedAmount() {
 		this.inserted = new LinkedHashMap<AcceptableCoins, Integer>();
@@ -102,14 +137,7 @@ public class VendingBrains {
 						.get(AcceptableCoins.DIME) > 0);
 	}
 
-	public List<Coin> getCoinReturnContents() {
-		return this.coinReturnContents;
-	}
 
-	public LinkedHashMap<VendableProducts, Integer> getProductInventory() {
-		return this.productInventory;
-	}
-	
 	private void initializeEmptyProductInventory(){
 		this.productInventory = new LinkedHashMap<VendableProducts, Integer>();
 		for (VendableProducts product : VendableProducts.values()) {
@@ -122,38 +150,7 @@ public class VendingBrains {
 		
 	}
 
-	public void addProductToInventory(VendableProducts product, int numberToAdd) {
-		this.productInventory.put(product, this.productInventory.get(product) + numberToAdd);
-	}
 
-	public void pushCoinReturn() {
-		for (AcceptableCoins denomination : this.inserted.keySet()) {
-			for(int n = 0; n < this.inserted.get(denomination); n++){
-				this.coinReturnContents.add(new Coin(denomination.getWeightInGrams(), denomination.getSizeInMillimeters()));
-			}
-		}
-		this.initializeEmptyInsertedAmount();
-	}
-
-	public void selectProduct(VendableProducts productToVend) {
-		if(this.productInventory.get(productToVend) > 0){
-			if(productToVend.getCostInDollars() > this.calculateInsertedTotal()){
-				this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
-			} else{
-				this.interruptMessage = "THANK YOU";
-				this.hopperContents.add(productToVend);
-				this.addInsertedAmountToBank();
-				if(this.calculateInsertedTotal() > productToVend.getCostInDollars()){
-					this.makeChangeFor(productToVend);
-				}
-				this.initializeEmptyInsertedAmount();
-			}
-		}
-		else{
-			this.interruptMessage = "SOLD OUT";
-		}
-		
-	}
 
 	private void addInsertedAmountToBank() {
 		for (AcceptableCoins coinType : AcceptableCoins.values()) {
@@ -161,11 +158,19 @@ public class VendingBrains {
 		}
 	}
 
+	private float calculateInsertedTotal() {
+		float total = 0f;
+		for (AcceptableCoins coin : AcceptableCoins.values()) {
+			total += this.inserted.get(coin) * coin.getMonetaryValueInDollars();
+		}
+		return total;
+	}
 
 
 	private void makeChangeFor(VendableProducts productToVend) {
 		float localTotalInserted = this.calculateInsertedTotal();
 		localTotalInserted -= productToVend.getCostInDollars();
+
 		while(localTotalInserted > AcceptableCoins.QUARTER.getMonetaryValueInDollars() && this.bank.get(AcceptableCoins.QUARTER) > 0){
 			this.coinReturnContents.add(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 			this.addChangeToBank(AcceptableCoins.QUARTER, -1);
