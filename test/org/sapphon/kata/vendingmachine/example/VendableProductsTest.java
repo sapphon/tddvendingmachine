@@ -10,5 +10,10 @@ public class VendableProductsTest {
 	public void testThereAreThreeVendableProducts() {
 		assertEquals(3, VendableProducts.values().length);
 	}
+	
+	@Test
+	public void testTheFirstProductIsCola() {
+		assertEquals("COLA", VendableProducts.values()[0].name());
+	}
 
 }
