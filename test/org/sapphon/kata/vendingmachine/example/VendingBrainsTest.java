@@ -142,7 +142,15 @@ public class VendingBrainsTest {
 		assertEquals(3, underTest.getProductInventory().keySet().size());
 	}
 	
-	
+	@Test
+	public void testProductInventoryStartsWithZeroEachOfCandyChipsAndSoda() {
+		VendingBrains underTest = new VendingBrains();
+		assertArrayEquals(VendableProducts.values(), underTest.getProductInventory().keySet().toArray());
+		Integer zero = 0;
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CANDY));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CHIPS));
+	}
 	
 
 }
