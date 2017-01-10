@@ -1,6 +1,5 @@
 package org.sapphon.kata.vendingmachine.example;
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -8,11 +7,11 @@ import java.util.List;
 
 public class VendingBrains implements IVendingBrains{
 
-	LinkedHashMap<AcceptableCoins, Integer> bank;
-	LinkedHashMap<AcceptableCoins, Integer> inserted;
-	LinkedHashMap<VendableProducts, Integer> productInventory;
-	List<Coin> coinReturnContents;
-	List<VendableProducts> hopperContents;
+	private LinkedHashMap<AcceptableCoins, Integer> bank;
+	private LinkedHashMap<AcceptableCoins, Integer> inserted;
+	private LinkedHashMap<VendableProducts, Integer> productInventory;
+	private List<Coin> coinReturnContents;
+	private List<VendableProducts> hopperContents;
 	
 	String interruptMessage = "";
 

@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class VendingBrainsTest {
 
-	VendingBrains underTest;
+	IVendingBrains underTest;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -239,15 +239,15 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductWithoutPuttingInMoneyGetsYouAPriceOnTheDisplay() {
-		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.getProductInventory().put(VendableProducts.CANDY, 1);
 		underTest.selectProduct(VendableProducts.CANDY);
 		assertEquals("PRICE $0.65", underTest.readDisplay());
 	}
 	
 	@Test
 	public void testChoosingAProductWithoutPuttingInMoneyGetsYouTheRightPriceOnTheDisplay_AndThenInsertCoinOrExactChangeOnly() {
-		underTest.productInventory.put(VendableProducts.CHIPS, 1);
-		underTest.productInventory.put(VendableProducts.COLA, 1);
+		underTest.getProductInventory().put(VendableProducts.CHIPS, 1);
+		underTest.getProductInventory().put(VendableProducts.COLA, 1);
 		underTest.selectProduct(VendableProducts.CHIPS);
 		assertEquals("PRICE $0.50", underTest.readDisplay());
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
@@ -260,8 +260,8 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductWithoutSufficientMoneyGetsYouTheRightPriceOnTheDisplay_AndThenYourTotal() {
-		underTest.productInventory.put(VendableProducts.CHIPS, 1);
-		underTest.productInventory.put(VendableProducts.COLA, 1);
+		underTest.getProductInventory().put(VendableProducts.CHIPS, 1);
+		underTest.getProductInventory().put(VendableProducts.COLA, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		//note: it is around here, very late I realize, that I muchly feel the need for a copy constructor between AcceptableCoin and Coin.  A good refactor for next time.
 		underTest.selectProduct(VendableProducts.CHIPS);
@@ -286,7 +286,7 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductThatIsInStockAndYouCanAffordSaysThankYou() {
-		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.getProductInventory().put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.selectProduct(VendableProducts.CHIPS);
@@ -295,7 +295,7 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductThatIsInStockAndYouCanAffordResetsYourTotal_NoChangeDue() {
-		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.getProductInventory().put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		assertEquals(0, underTest.getCoinReturnContents().size());
@@ -307,7 +307,7 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testChoosingAProductThatIsInStockAndYouCanAffordReallyGivesYouTheItem() {
-		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.getProductInventory().put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.selectProduct(VendableProducts.CHIPS);
@@ -317,8 +317,8 @@ public class VendingBrainsTest {
 	
 	@Test
 	public void testSeveralItemsCanBeVendedIfAllOtherRequirementsAreMet() {
-		underTest.productInventory.put(VendableProducts.CHIPS, 1);
-		underTest.productInventory.put(VendableProducts.COLA, 3);
+		underTest.getProductInventory().put(VendableProducts.CHIPS, 1);
+		underTest.getProductInventory().put(VendableProducts.COLA, 3);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.selectProduct(VendableProducts.CHIPS);
@@ -338,7 +338,7 @@ public class VendingBrainsTest {
 		int plenty = 10;
 		underTest.addChangeToBank(AcceptableCoins.DIME, plenty);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, plenty);
-		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.getProductInventory().put(VendableProducts.CANDY, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -358,7 +358,7 @@ public class VendingBrainsTest {
 		int plenty = 10;
 		underTest.addChangeToBank(AcceptableCoins.DIME, plenty);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, plenty);
-		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.getProductInventory().put(VendableProducts.CANDY, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
@@ -376,7 +376,7 @@ public class VendingBrainsTest {
 	@Test
 	public void testMachineWillNotProvideChangeItDoesNotHave_ButWillMakeItUpWithSmallerCoins() {
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 2);
-		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.getProductInventory().put(VendableProducts.CANDY, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -394,7 +394,7 @@ public class VendingBrainsTest {
 	@Test
 	public void testMachineWillGetAsCloseAsItCanIfTrulyOutOfChange() {
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 1);
-		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.getProductInventory().put(VendableProducts.CANDY, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -414,7 +414,7 @@ public class VendingBrainsTest {
 		underTest.addChangeToBank(AcceptableCoins.QUARTER, 3);
 		underTest.addChangeToBank(AcceptableCoins.DIME, 3);
 		underTest.addChangeToBank(AcceptableCoins.NICKEL, 3);
-		underTest.productInventory.put(VendableProducts.CANDY, 2);
+		underTest.getProductInventory().put(VendableProducts.CANDY, 2);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
