@@ -240,7 +240,14 @@ public class VendingBrainsTest {
 		assertEquals("$0.35", underTest.readDisplay());
 		underTest.pushCoinReturn();
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
-		
 	}
+	
+	@Test
+	public void testChoosingAProductWithoutPuttingInMoneyGetsYouAPriceOnTheDisplay() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.selectProduct(VendableProducts.CANDY);
+		assertEquals("PRICE $0.65", underTest.readDisplay());
+	}
+	
 	
 }

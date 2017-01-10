@@ -10,6 +10,7 @@ public class VendingBrains {
 	LinkedHashMap<AcceptableCoins, Integer> inserted;
 	LinkedHashMap<VendableProducts, Integer> productInventory;
 	List<Coin> coinReturnContents;
+	private String interruptMessage = "";
 
 	public VendingBrains() {
 		initializeEmptyBank();
@@ -19,7 +20,12 @@ public class VendingBrains {
 	}
 
 	public String readDisplay() {
-		if (calculateInsertedTotal() > 0f) {
+		if(interruptMessage != ""){
+			String toReturn = interruptMessage;
+			interruptMessage = "";
+			return toReturn;
+		}
+		else if (calculateInsertedTotal() > 0f) {
 			return "$" + String.format("%.02f", this.calculateInsertedTotal());
 		}
 		else if (canMakeChangeWithCurrentBank()) {
@@ -111,6 +117,11 @@ public class VendingBrains {
 			}
 		}
 		this.initializeEmptyInsertedAmount();
+	}
+
+	public void selectProduct(VendableProducts productToVend) {
+		this.interruptMessage = "PRICE $0.65";
+		
 	}
 
 }
