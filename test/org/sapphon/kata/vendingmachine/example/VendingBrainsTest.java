@@ -423,6 +423,7 @@ public class VendingBrainsTest {
 		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
 		assertEquals(1, underTest.getCoinReturnContents().size());
 		assertEquals(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()), underTest.getCoinReturnContents().get(0));
+		assertEquals(0, underTest.getNumberOfCoinsInBank(AcceptableCoins.NICKEL));
 	}
 	
 }
