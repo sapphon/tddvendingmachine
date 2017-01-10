@@ -202,4 +202,28 @@ public class VendingBrainsTest {
 		assertEquals(expectedCoinReturnContents, underTest.getCoinReturnContents());
 	}
 	
+	@Test
+	public void testCoinReturnContainsAllInvalidCoinsInserted_AndSomeValidOnesOnceYouPushCoinReturn() {
+		VendingBrains underTest = new VendingBrains();
+		List<Coin> expectedCoinReturnContents = new ArrayList<Coin>();
+		Coin bigSlug = new Coin(100f, 100f);
+		Coin littleSlug = new Coin(.001f, .001f);
+		Coin validQuarter = new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters());
+		Coin validDime = new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters());
+		
+		underTest.insertCoin(bigSlug);
+		underTest.insertCoin(littleSlug);
+		underTest.insertCoin(validQuarter);
+		underTest.insertCoin(validDime);
+		
+		expectedCoinReturnContents.add(bigSlug);
+		expectedCoinReturnContents.add(littleSlug);
+		assertEquals(expectedCoinReturnContents, underTest.getCoinReturnContents());
+		underTest.pushCoinReturn();
+		expectedCoinReturnContents.add(validQuarter);
+		expectedCoinReturnContents.add(validDime);
+		assertEquals(expectedCoinReturnContents, underTest.getCoinReturnContents());
+		
+	}
+	
 }

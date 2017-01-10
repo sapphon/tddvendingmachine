@@ -105,6 +105,11 @@ public class VendingBrains {
 	}
 
 	public void pushCoinReturn() {
+		for (AcceptableCoins denomination : this.inserted.keySet()) {
+			for(int n = 0; n < this.inserted.get(denomination); n++){
+				this.coinReturnContents.add(new Coin(denomination.getWeightInGrams(), denomination.getSizeInMillimeters()));
+			}
+		}
 	}
 
 }
