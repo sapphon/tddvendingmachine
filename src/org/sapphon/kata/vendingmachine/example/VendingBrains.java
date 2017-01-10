@@ -155,7 +155,24 @@ public class VendingBrains {
 	}
 
 	private void makeChangeFor(VendableProducts productToVend) {
-		this.coinReturnContents.add(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+		float localTotalInserted = this.calculateInsertedTotal();
+		localTotalInserted -= productToVend.getCostInDollars();
+		while(localTotalInserted > AcceptableCoins.QUARTER.getMonetaryValueInDollars() && this.bank.get(AcceptableCoins.QUARTER) > 0){
+			this.coinReturnContents.add(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+			this.addChangeToBank(AcceptableCoins.QUARTER, -1);
+			localTotalInserted -= AcceptableCoins.QUARTER.getMonetaryValueInDollars();
+		}
+		while(localTotalInserted > AcceptableCoins.DIME.getMonetaryValueInDollars() && this.bank.get(AcceptableCoins.DIME) > 0){
+			this.coinReturnContents.add(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+			this.addChangeToBank(AcceptableCoins.DIME, -1);
+			localTotalInserted -= AcceptableCoins.DIME.getMonetaryValueInDollars();
+		}
+		while(localTotalInserted > AcceptableCoins.NICKEL.getMonetaryValueInDollars() && this.bank.get(AcceptableCoins.NICKEL) > 0){
+			this.coinReturnContents.add(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()));
+			this.addChangeToBank(AcceptableCoins.NICKEL, -1);
+			localTotalInserted -= AcceptableCoins.NICKEL.getMonetaryValueInDollars();
+		}
+		
 		
 	}
 

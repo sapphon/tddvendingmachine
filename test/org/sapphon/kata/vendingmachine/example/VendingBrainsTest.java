@@ -363,7 +363,66 @@ public class VendingBrainsTest {
 		assertEquals(1, underTest.getItemHopperContents().size());
 		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
 		assertEquals(1, underTest.getCoinReturnContents().size());
+		assertEquals(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()), underTest.getCoinReturnContents().get(0));
 		
+	}
+	
+	@Test
+	public void testMakingChangeDuringAValidPurchase_FiveCentsIsOwed() {
+		VendingBrains underTest = new VendingBrains();
+		int plenty = 10;
+		underTest.addChangeToBank(AcceptableCoins.DIME, plenty);
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, plenty);
+		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+		assertEquals(0, underTest.getCoinReturnContents().size());
+		
+		underTest.selectProduct(VendableProducts.CANDY);
+		
+		assertEquals(1, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
+		assertEquals(1, underTest.getCoinReturnContents().size());
+		assertEquals(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()), underTest.getCoinReturnContents().get(0));
+	}
+	
+	@Test
+	public void testMachineWillNotProvideChangeItDoesNotHave_ButWillMakeItUpWithSmallerCoins() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, 2);
+		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		assertEquals(0, underTest.getCoinReturnContents().size());
+		
+		underTest.selectProduct(VendableProducts.CANDY);
+		
+		assertEquals(1, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
+		assertEquals(2, underTest.getCoinReturnContents().size());
+		assertEquals(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()), underTest.getCoinReturnContents().get(0));
+		assertEquals(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()), underTest.getCoinReturnContents().get(1));
+	}
+	
+	@Test
+	public void testMachineWillGetAsCloseAsItCanIfTrulyOutOfChange() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, 1);
+		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		assertEquals(0, underTest.getCoinReturnContents().size());
+		
+		underTest.selectProduct(VendableProducts.CANDY);
+		
+		assertEquals(1, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
+		assertEquals(1, underTest.getCoinReturnContents().size());
+		assertEquals(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()), underTest.getCoinReturnContents().get(0));
 	}
 	
 }
