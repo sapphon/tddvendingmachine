@@ -322,7 +322,26 @@ public class VendingBrainsTest {
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.selectProduct(VendableProducts.CHIPS);
 		assertEquals(1, underTest.getItemHopperContents().size());
-		
+		assertEquals(VendableProducts.CHIPS, underTest.getItemHopperContents().get(0));
+	}
+	
+	@Test
+	public void testSeveralItemsCanBeVendedIfAllOtherRequirementsAreMet() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.productInventory.put(VendableProducts.COLA, 3);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.selectProduct(VendableProducts.CHIPS);
+		assertEquals(1, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.CHIPS, underTest.getItemHopperContents().get(0));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.selectProduct(VendableProducts.COLA);
+		assertEquals(2, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.COLA, underTest.getItemHopperContents().get(1));
 	}
 	
 }

@@ -12,6 +12,8 @@ public class VendingBrains {
 	LinkedHashMap<AcceptableCoins, Integer> inserted;
 	LinkedHashMap<VendableProducts, Integer> productInventory;
 	List<Coin> coinReturnContents;
+	List<VendableProducts> hopperContents;
+	
 	private String interruptMessage = "";
 
 	public VendingBrains() {
@@ -19,7 +21,10 @@ public class VendingBrains {
 		initializeEmptyCoinReturn();
 		initializeEmptyInsertedAmount();
 		initializeEmptyProductInventory();
+		initializeEmptyHopperContents();
 	}
+
+
 
 	public String readDisplay() {
 		if(interruptMessage != ""){
@@ -57,9 +62,7 @@ public class VendingBrains {
 	}
 	
 	public List<VendableProducts> getItemHopperContents(){
-		ArrayList<VendableProducts> hopperContents = new ArrayList<VendableProducts>();
-		hopperContents.add(VendableProducts.CHIPS);
-		return hopperContents;
+		return this.hopperContents;
 	}
 
 	public void addChangeToBank(AcceptableCoins coinType, int howMany) {
@@ -113,6 +116,11 @@ public class VendingBrains {
 			this.productInventory.put(product, 0);
 		}
 	}
+	
+	private void initializeEmptyHopperContents() {
+		this.hopperContents = new ArrayList<VendableProducts>();
+		
+	}
 
 	public void addProductToInventory(VendableProducts product, int numberToAdd) {
 		this.productInventory.put(product, this.productInventory.get(product) + numberToAdd);
@@ -134,6 +142,7 @@ public class VendingBrains {
 			} else{
 				this.interruptMessage = "THANK YOU";
 				this.initializeEmptyInsertedAmount();
+				this.hopperContents.add(productToVend);
 			}
 		}
 		else{
