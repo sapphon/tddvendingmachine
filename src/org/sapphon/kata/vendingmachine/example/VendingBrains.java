@@ -53,6 +53,10 @@ public class VendingBrains {
 	public int getNumberOfCoinsInBank(AcceptableCoins coinType) {
 		return this.bank.get(coinType);
 	}
+	
+	public void takeCoinReturnContents(){
+		this.initializeEmptyCoinReturn();
+	}
 
 	private void initializeEmptyInsertedAmount() {
 		this.inserted = new LinkedHashMap<AcceptableCoins, Integer>();

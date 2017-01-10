@@ -122,5 +122,19 @@ public class VendingBrainsTest {
 		assertEquals(1, underTest.getCoinReturnContents().size());
 	}
 	
+	@Test
+	public void testUserCanRemoveCoinReturnContents() {
+		VendingBrains underTest = new VendingBrains();
+		assertEquals(0, underTest.getCoinReturnContents().size());
+		Coin slugCoin = new Coin(100f, 0.001f);
+		underTest.insertCoin(slugCoin);
+		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
+		assertEquals(1, underTest.getCoinReturnContents().size());
+		assertSame(slugCoin, underTest.getCoinReturnContents().get(0));
+		underTest.takeCoinReturnContents();
+		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
+		assertEquals(0, underTest.getCoinReturnContents().size());
+	}
+	
 
 }
