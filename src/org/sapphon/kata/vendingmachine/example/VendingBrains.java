@@ -120,7 +120,7 @@ public class VendingBrains {
 	}
 
 	public void selectProduct(VendableProducts productToVend) {
-		this.interruptMessage = "PRICE $0.65";
+		this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
 		
 	}
 

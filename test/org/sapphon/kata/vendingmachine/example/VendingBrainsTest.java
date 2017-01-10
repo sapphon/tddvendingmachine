@@ -249,5 +249,18 @@ public class VendingBrainsTest {
 		assertEquals("PRICE $0.65", underTest.readDisplay());
 	}
 	
+	@Test
+	public void testChoosingAProductWithoutPuttingInMoneyGetsYouTheRightPriceOnTheDisplay_AndThenInsertCoinOrExactChangeOnly() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.selectProduct(VendableProducts.CHIPS);
+		assertEquals("PRICE $0.50", underTest.readDisplay());
+		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, 10);
+		assertEquals("INSERT COIN", underTest.readDisplay());
+		underTest.selectProduct(VendableProducts.COLA);
+		assertEquals("PRICE $1.00", underTest.readDisplay());
+		assertEquals("INSERT COIN", underTest.readDisplay());
+	}
+	
 	
 }
