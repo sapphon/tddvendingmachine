@@ -136,5 +136,13 @@ public class VendingBrainsTest {
 		assertEquals(0, underTest.getCoinReturnContents().size());
 	}
 	
+	@Test
+	public void testProductInventoryStartsWithThreeTypesOfItem() {
+		VendingBrains underTest = new VendingBrains();
+		assertEquals(3, underTest.getProductInventory().keySet().size());
+	}
+	
+	
+	
 
 }

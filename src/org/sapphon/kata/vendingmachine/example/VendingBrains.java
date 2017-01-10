@@ -87,4 +87,12 @@ public class VendingBrains {
 		return this.coinReturnContents;
 	}
 
+	public LinkedHashMap<VendableProducts, Integer> getProductInventory() {
+		LinkedHashMap<VendableProducts, Integer> localTrickyMap = new LinkedHashMap<VendableProducts, Integer>();
+		for (VendableProducts product : VendableProducts.values()) {
+			localTrickyMap.put(product, 0);
+		}
+		return localTrickyMap;
+	}
+
 }
