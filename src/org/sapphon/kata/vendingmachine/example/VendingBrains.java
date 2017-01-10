@@ -1,5 +1,7 @@
 package org.sapphon.kata.vendingmachine.example;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -125,6 +127,7 @@ public class VendingBrains {
 				this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
 			} else{
 				this.interruptMessage = "THANK YOU";
+				this.initializeEmptyInsertedAmount();
 			}
 		}
 		else{
