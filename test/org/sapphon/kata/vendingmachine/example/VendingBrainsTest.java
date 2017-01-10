@@ -304,7 +304,7 @@ public class VendingBrainsTest {
 	}
 	
 	@Test
-	public void testChoosingAProductThatIsInStockAndYouCanAffordResetsYourTotal_NoChange() {
+	public void testChoosingAProductThatIsInStockAndYouCanAffordResetsYourTotal_NoChangeDue() {
 		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
@@ -346,6 +346,24 @@ public class VendingBrainsTest {
 		assertEquals(VendableProducts.COLA, underTest.getItemHopperContents().get(1));
 	}
 	
-
+	@Test
+	public void testMakingChangeDuringAValidPurchase_TenCentsIsOwed() {
+		VendingBrains underTest = new VendingBrains();
+		int plenty = 10;
+		underTest.addChangeToBank(AcceptableCoins.DIME, plenty);
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, plenty);
+		underTest.productInventory.put(VendableProducts.CANDY, 1);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		assertEquals(0, underTest.getCoinReturnContents().size());
+		
+		underTest.selectProduct(VendableProducts.CANDY);
+		
+		assertEquals(1, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
+		assertEquals(1, underTest.getCoinReturnContents().size());
+		
+	}
 	
 }

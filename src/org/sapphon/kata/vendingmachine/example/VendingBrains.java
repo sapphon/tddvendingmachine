@@ -141,13 +141,21 @@ public class VendingBrains {
 				this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
 			} else{
 				this.interruptMessage = "THANK YOU";
-				this.initializeEmptyInsertedAmount();
 				this.hopperContents.add(productToVend);
+				if(this.calculateInsertedTotal() > productToVend.getCostInDollars()){
+					this.makeChangeFor(productToVend);
+				}
+				this.initializeEmptyInsertedAmount();
 			}
 		}
 		else{
 			this.interruptMessage = "SOLD OUT";
 		}
+		
+	}
+
+	private void makeChangeFor(VendableProducts productToVend) {
+		this.coinReturnContents.add(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
 		
 	}
 
