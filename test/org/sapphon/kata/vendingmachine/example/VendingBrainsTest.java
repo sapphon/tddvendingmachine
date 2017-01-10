@@ -304,12 +304,14 @@ public class VendingBrainsTest {
 	}
 	
 	@Test
-	public void testChoosingAProductThatIsInStockAndYouCanAffordResetsYourTotal() {
+	public void testChoosingAProductThatIsInStockAndYouCanAffordResetsYourTotal_NoChange() {
 		VendingBrains underTest = new VendingBrains();
 		underTest.productInventory.put(VendableProducts.CHIPS, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		assertEquals(0, underTest.getCoinReturnContents().size());
 		underTest.selectProduct(VendableProducts.CHIPS);
+		assertEquals(0, underTest.getCoinReturnContents().size());
 		assertEquals("THANK YOU", underTest.readDisplay());
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
 	}
@@ -343,5 +345,7 @@ public class VendingBrainsTest {
 		assertEquals(2, underTest.getItemHopperContents().size());
 		assertEquals(VendableProducts.COLA, underTest.getItemHopperContents().get(1));
 	}
+	
+
 	
 }
