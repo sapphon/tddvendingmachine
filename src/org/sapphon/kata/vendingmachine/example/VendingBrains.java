@@ -121,7 +121,11 @@ public class VendingBrains {
 
 	public void selectProduct(VendableProducts productToVend) {
 		if(this.productInventory.get(productToVend) > 0){
-			this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
+			if(productToVend.getCostInDollars() > this.calculateInsertedTotal()){
+				this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
+			} else{
+				this.interruptMessage = "THANK YOU";
+			}
 		}
 		else{
 			this.interruptMessage = "SOLD OUT";

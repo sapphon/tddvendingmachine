@@ -293,5 +293,14 @@ public class VendingBrainsTest {
 		assertEquals("$0.25", underTest.readDisplay());
 	}
 	
+	@Test
+	public void testChoosingAProductThatIsInStockAndYouCanAffordSaysThankYou() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.selectProduct(VendableProducts.CHIPS);
+		assertEquals("THANK YOU", underTest.readDisplay());
+	}
 	
 }
