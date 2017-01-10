@@ -186,6 +186,10 @@ public class VendingBrainsTest {
 		assertEquals(five, underTest.getProductInventory().get(VendableProducts.CHIPS));
 		assertEquals(two, underTest.getProductInventory().get(VendableProducts.CANDY));
 		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
+		underTest.addProductToInventory(VendableProducts.CHIPS, 2);
+		assertEquals(seven, underTest.getProductInventory().get(VendableProducts.CHIPS));
+		assertEquals(two, underTest.getProductInventory().get(VendableProducts.CANDY));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
 	}
 	
 }
