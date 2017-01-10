@@ -120,7 +120,12 @@ public class VendingBrains {
 	}
 
 	public void selectProduct(VendableProducts productToVend) {
-		this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
+		if(this.productInventory.get(productToVend) > 0){
+			this.interruptMessage = "PRICE $" + String.format("%.02f", productToVend.getCostInDollars());
+		}
+		else{
+			this.interruptMessage = "SOLD OUT";
+		}
 		
 	}
 

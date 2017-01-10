@@ -226,7 +226,7 @@ public class VendingBrainsTest {
 	}
 	
 	@Test
-	public void testPushingCoinReturnResetsTheAmountInserted() {
+	public void testPushingCoinReturnResetsTheAmountInserted_InsteadOfMakingYouInfinitelyRich() {
 		VendingBrains underTest = new VendingBrains();
 		Coin bigSlug = new Coin(100f, 100f);
 		Coin littleSlug = new Coin(.001f, .001f);
@@ -245,6 +245,7 @@ public class VendingBrainsTest {
 	@Test
 	public void testChoosingAProductWithoutPuttingInMoneyGetsYouAPriceOnTheDisplay() {
 		VendingBrains underTest = new VendingBrains();
+		underTest.productInventory.put(VendableProducts.CANDY, 1);
 		underTest.selectProduct(VendableProducts.CANDY);
 		assertEquals("PRICE $0.65", underTest.readDisplay());
 	}
@@ -252,6 +253,8 @@ public class VendingBrainsTest {
 	@Test
 	public void testChoosingAProductWithoutPuttingInMoneyGetsYouTheRightPriceOnTheDisplay_AndThenInsertCoinOrExactChangeOnly() {
 		VendingBrains underTest = new VendingBrains();
+		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.productInventory.put(VendableProducts.COLA, 1);
 		underTest.selectProduct(VendableProducts.CHIPS);
 		assertEquals("PRICE $0.50", underTest.readDisplay());
 		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
@@ -265,6 +268,8 @@ public class VendingBrainsTest {
 	@Test
 	public void testChoosingAProductWithoutSufficientMoneyGetsYouTheRightPriceOnTheDisplay_AndThenYourTotal() {
 		VendingBrains underTest = new VendingBrains();
+		underTest.productInventory.put(VendableProducts.CHIPS, 1);
+		underTest.productInventory.put(VendableProducts.COLA, 1);
 		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
 		//note: it is around here, very late I realize, that I muchly feel the need for a copy constructor between AcceptableCoin and Coin.  A good refactor for next time.
 		underTest.selectProduct(VendableProducts.CHIPS);
@@ -274,4 +279,19 @@ public class VendingBrainsTest {
 		assertEquals("PRICE $1.00", underTest.readDisplay());
 		assertEquals("$0.25", underTest.readDisplay());
 	}
+	
+	@Test
+	public void testChoosingAProductThatIsSoldOutGetsYouASoldOutMessageNoMatterWhat() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.selectProduct(VendableProducts.CHIPS);
+		assertEquals("SOLD OUT", underTest.readDisplay());
+		assertEquals("EXACT CHANGE ONLY", underTest.readDisplay());
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		assertEquals("$0.25", underTest.readDisplay());
+		underTest.selectProduct(VendableProducts.COLA);
+		assertEquals("SOLD OUT", underTest.readDisplay());
+		assertEquals("$0.25", underTest.readDisplay());
+	}
+	
+	
 }
