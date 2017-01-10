@@ -2,6 +2,8 @@ package org.sapphon.kata.vendingmachine.example;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.junit.Test;
@@ -190,6 +192,14 @@ public class VendingBrainsTest {
 		assertEquals(seven, underTest.getProductInventory().get(VendableProducts.CHIPS));
 		assertEquals(two, underTest.getProductInventory().get(VendableProducts.CANDY));
 		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
+	}
+	
+	@Test
+	public void testCoinReturn_WithNoCoinsInserted() {
+		VendingBrains underTest = new VendingBrains();
+		List<Coin> expectedCoinReturnContents = new ArrayList<Coin>();
+		underTest.pushCoinReturn();
+		assertEquals(expectedCoinReturnContents, underTest.getCoinReturnContents());
 	}
 	
 }

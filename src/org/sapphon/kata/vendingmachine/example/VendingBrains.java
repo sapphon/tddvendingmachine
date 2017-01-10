@@ -104,4 +104,7 @@ public class VendingBrains {
 		this.productInventory.put(product, this.productInventory.get(product) + numberToAdd);
 	}
 
+	public void pushCoinReturn() {
+	}
+
 }
