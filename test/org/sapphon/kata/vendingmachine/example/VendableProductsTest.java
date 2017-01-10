@@ -20,4 +20,9 @@ public class VendableProductsTest {
 	public void testTheSecondProductIsChips() {
 		assertEquals("CHIPS", VendableProducts.values()[1].name());
 	}
+	
+	@Test
+	public void testTheThirdProductIsCandy() {
+		assertEquals("CANDY", VendableProducts.values()[2].name());
+	}
 }

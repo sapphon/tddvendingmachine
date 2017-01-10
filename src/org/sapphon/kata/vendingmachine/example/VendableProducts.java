@@ -1,5 +1,5 @@
 package org.sapphon.kata.vendingmachine.example;
 
 public enum VendableProducts {
-	COLA, CHIPS, WASTE;
+	COLA, CHIPS, CANDY;
 }
