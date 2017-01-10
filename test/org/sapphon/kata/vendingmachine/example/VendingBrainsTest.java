@@ -165,7 +165,27 @@ public class VendingBrainsTest {
 		assertEquals(five, underTest.getProductInventory().get(VendableProducts.CHIPS));
 		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CANDY));
 		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
-		
+	}
+	
+	@Test
+	public void testProductInventoryCanBeAddedToMultipleTimes() {
+		VendingBrains underTest = new VendingBrains();
+		assertArrayEquals(VendableProducts.values(), underTest.getProductInventory().keySet().toArray());
+		Integer zero = 0;
+		Integer five = 5;
+		Integer two = 2;
+		Integer seven = 7;
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CANDY));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CHIPS));
+		underTest.addProductToInventory(VendableProducts.CHIPS, 5);
+		assertEquals(five, underTest.getProductInventory().get(VendableProducts.CHIPS));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CANDY));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
+		underTest.addProductToInventory(VendableProducts.CANDY, 2);
+		assertEquals(five, underTest.getProductInventory().get(VendableProducts.CHIPS));
+		assertEquals(two, underTest.getProductInventory().get(VendableProducts.CANDY));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
 	}
 	
 }

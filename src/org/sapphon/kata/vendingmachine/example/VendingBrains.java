@@ -101,7 +101,7 @@ public class VendingBrains {
 	}
 
 	public void addProductToInventory(VendableProducts product, int numberToAdd) {
-		this.productInventory.put(VendableProducts.CHIPS, 5);
+		this.productInventory.put(product, this.productInventory.get(product) + numberToAdd);
 	}
 
 }
