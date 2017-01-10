@@ -31,4 +31,9 @@ public class VendableProductsTest {
 		assertEquals(1.0f, VendableProducts.COLA.getCostInDollars(), Float.MIN_VALUE);
 	}
 	
+	@Test
+	public void testChipsCostFiftyCents() {
+		assertEquals(0.5f, VendableProducts.CHIPS.getCostInDollars(), Float.MIN_VALUE);
+	}
+	
 }

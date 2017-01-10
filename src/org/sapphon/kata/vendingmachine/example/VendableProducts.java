@@ -1,9 +1,15 @@
 package org.sapphon.kata.vendingmachine.example;
 
 public enum VendableProducts {
-	COLA, CHIPS, CANDY;
+	COLA(1f), CHIPS(.5f), CANDY(100f);
 
+	private float costInDollars;
+	
+	VendableProducts(float cost){
+		this.costInDollars = cost;
+	}
+	
 	public float getCostInDollars() {
-		return 1f;
+		return this.costInDollars;
 	}
 }
