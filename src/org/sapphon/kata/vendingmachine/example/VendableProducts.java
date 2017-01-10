@@ -1,7 +1,7 @@
 package org.sapphon.kata.vendingmachine.example;
 
 public enum VendableProducts {
-	COLA(1f), CHIPS(.5f), CANDY(100f);
+	COLA(1f), CHIPS(.5f), CANDY(.65f);
 
 	private float costInDollars;
 	
