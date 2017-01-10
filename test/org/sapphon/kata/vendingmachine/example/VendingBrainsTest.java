@@ -426,4 +426,42 @@ public class VendingBrainsTest {
 		assertEquals(0, underTest.getNumberOfCoinsInBank(AcceptableCoins.NICKEL));
 	}
 	
+	@Test
+	public void testMachineWillGetRicherAsYouBuyThings_AndPoorerCorrespondingToTheChangeItMakes() {
+		VendingBrains underTest = new VendingBrains();
+		underTest.addChangeToBank(AcceptableCoins.QUARTER, 3);
+		underTest.addChangeToBank(AcceptableCoins.DIME, 3);
+		underTest.addChangeToBank(AcceptableCoins.NICKEL, 3);
+		underTest.productInventory.put(VendableProducts.CANDY, 2);
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.selectProduct(VendableProducts.CANDY);
+		
+		assertEquals(1, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
+		assertEquals(1, underTest.getCoinReturnContents().size());
+		assertEquals(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()), underTest.getCoinReturnContents().get(0));
+		assertEquals(6, underTest.getNumberOfCoinsInBank(AcceptableCoins.QUARTER));
+		assertEquals(2, underTest.getNumberOfCoinsInBank(AcceptableCoins.DIME));
+		
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.QUARTER.getWeightInGrams(), AcceptableCoins.QUARTER.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+		underTest.insertCoin(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()));
+		underTest.selectProduct(VendableProducts.CANDY);
+		
+		assertEquals(2, underTest.getItemHopperContents().size());
+		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(0));
+		assertEquals(VendableProducts.CANDY, underTest.getItemHopperContents().get(1));
+		assertEquals(2, underTest.getCoinReturnContents().size());
+		assertEquals(new Coin(AcceptableCoins.DIME.getWeightInGrams(), AcceptableCoins.DIME.getSizeInMillimeters()), underTest.getCoinReturnContents().get(0));
+		assertEquals(new Coin(AcceptableCoins.NICKEL.getWeightInGrams(), AcceptableCoins.NICKEL.getSizeInMillimeters()), underTest.getCoinReturnContents().get(1));
+		assertEquals(8, underTest.getNumberOfCoinsInBank(AcceptableCoins.QUARTER));
+		assertEquals(4, underTest.getNumberOfCoinsInBank(AcceptableCoins.DIME));
+		assertEquals(2, underTest.getNumberOfCoinsInBank(AcceptableCoins.NICKEL));
+		
+	}
+	
+	
 }

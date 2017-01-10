@@ -142,6 +142,7 @@ public class VendingBrains {
 			} else{
 				this.interruptMessage = "THANK YOU";
 				this.hopperContents.add(productToVend);
+				this.addInsertedAmountToBank();
 				if(this.calculateInsertedTotal() > productToVend.getCostInDollars()){
 					this.makeChangeFor(productToVend);
 				}
@@ -153,6 +154,14 @@ public class VendingBrains {
 		}
 		
 	}
+
+	private void addInsertedAmountToBank() {
+		for (AcceptableCoins coinType : AcceptableCoins.values()) {
+			this.addChangeToBank(coinType, this.inserted.get(coinType));
+		}
+	}
+
+
 
 	private void makeChangeFor(VendableProducts productToVend) {
 		float localTotalInserted = this.calculateInsertedTotal();
