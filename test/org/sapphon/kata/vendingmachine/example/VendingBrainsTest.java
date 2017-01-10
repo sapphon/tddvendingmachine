@@ -152,5 +152,20 @@ public class VendingBrainsTest {
 		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CHIPS));
 	}
 	
-
+	@Test
+	public void testProductInventoryCanBeAddedToAndRemembered() {
+		VendingBrains underTest = new VendingBrains();
+		assertArrayEquals(VendableProducts.values(), underTest.getProductInventory().keySet().toArray());
+		Integer zero = 0;
+		Integer five = 5;
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CANDY));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CHIPS));
+		underTest.addProductToInventory(VendableProducts.CHIPS, 5);
+		assertEquals(five, underTest.getProductInventory().get(VendableProducts.CHIPS));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.CANDY));
+		assertEquals(zero, underTest.getProductInventory().get(VendableProducts.COLA));
+		
+	}
+	
 }

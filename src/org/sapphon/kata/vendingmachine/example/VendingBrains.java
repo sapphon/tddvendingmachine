@@ -8,12 +8,14 @@ public class VendingBrains {
 
 	LinkedHashMap<AcceptableCoins, Integer> bank;
 	LinkedHashMap<AcceptableCoins, Integer> inserted;
+	LinkedHashMap<VendableProducts, Integer> productInventory;
 	List<Coin> coinReturnContents;
 
 	public VendingBrains() {
 		initializeEmptyBank();
 		initializeEmptyCoinReturn();
 		initializeEmptyInsertedAmount();
+		initializeEmptyProductInventory();
 	}
 
 	public String readDisplay() {
@@ -88,11 +90,18 @@ public class VendingBrains {
 	}
 
 	public LinkedHashMap<VendableProducts, Integer> getProductInventory() {
-		LinkedHashMap<VendableProducts, Integer> localTrickyMap = new LinkedHashMap<VendableProducts, Integer>();
+		return this.productInventory;
+	}
+	
+	private void initializeEmptyProductInventory(){
+		this.productInventory = new LinkedHashMap<VendableProducts, Integer>();
 		for (VendableProducts product : VendableProducts.values()) {
-			localTrickyMap.put(product, 0);
+			this.productInventory.put(product, 0);
 		}
-		return localTrickyMap;
+	}
+
+	public void addProductToInventory(VendableProducts product, int numberToAdd) {
+		this.productInventory.put(VendableProducts.CHIPS, 5);
 	}
 
 }
