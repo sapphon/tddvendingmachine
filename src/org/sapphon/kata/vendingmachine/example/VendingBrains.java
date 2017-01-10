@@ -110,6 +110,7 @@ public class VendingBrains {
 				this.coinReturnContents.add(new Coin(denomination.getWeightInGrams(), denomination.getSizeInMillimeters()));
 			}
 		}
+		this.initializeEmptyInsertedAmount();
 	}
 
 }
