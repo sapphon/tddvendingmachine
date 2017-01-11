@@ -2,3 +2,5 @@
 \.metadata
 \.recommenders
 \.settings
+gradle/build
+gradle/\.gradle
