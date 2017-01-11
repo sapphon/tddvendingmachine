@@ -3,4 +3,4 @@
 \.recommenders
 \.settings
 gradle/build
-gradle/\.gradle
+\.gradle
